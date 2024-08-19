@@ -142,13 +142,13 @@
       this[globalName] = mainExports;
     }
   }
-})({"jC2qd":[function(require,module,exports) {
+})({"8t2f2":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
-module.bundle.HMR_BUNDLE_ID = "890e741a975ef6c8";
+module.bundle.HMR_BUNDLE_ID = "a304e7fc0d966ffc";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, globalThis, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -556,32 +556,22 @@ function hmrAccept(bundle, id) {
     });
 }
 
-},{}],"8lqZg":[function(require,module,exports) {
-// Inserte el código aquí
+},{}],"lOkiQ":[function(require,module,exports) {
 // Importar la función GetUsers desde el archivo getUsers.js en la carpeta servicios
-var _getUsers = require("./servicios/getUsers");
-const reloj = document.getElementById("reloj");
-function actualizarHora() {
-    const ahora = new Date(); // Obtiene la hora actual
-    const horaFormateada = ahora.toLocaleTimeString(); // Formatea la hora a un string legible
-    reloj.textContent = horaFormateada; // Actualiza el contenido del elemento con id 'reloj'
-}
-// Llama a la función actualizarHora cada segundo
-setInterval(actualizarHora, 1000);
-// Llama a la función una vez al cargar la página para mostrar la hora inmediatamente
-actualizarHora();
-// Obtener una referencia al elemento del DOM con el id "mostrarNombre"
-let mostrarNombre = document.getElementById("mostrarNombre");
-// Llamara la función asíncrona resolverPromesa para iniciar el proceso de obtención de usuarios
-resolverPromesa();
-async function resolverPromesa() {
-    // Esperar la resolución de la promesa devuelta por GetUsers y guardar los datos en la variable infoUsers
-    let infoUsers = await (0, _getUsers.GetUsers)();
-    // Imprimir los datos obtenidos en la consola para verificar que se han recibido correctamente
-    console.log(infoUsers);
-}
+var _getUsers = require("../servicios/getUsers");
+var _postUsers = require("../servicios/postUsers");
+var _updateUsers = require("../servicios/updateUsers");
+const nombre = document.getElementById("nombre");
+const apellido = document.getElementById("apellido");
+const btnCrear = document.getElementById("crear");
+btnCrear.addEventListener("click", function() {
+    let nombreUsuario = nombre.value;
+    let apellidoUsuario = apellido.value;
+    (0, _postUsers.postUsers)(nombreUsuario, apellidoUsuario);
+}) //updateUsers(nombreUsuario, apellidoUsuario, id);
+;
 
-},{"./servicios/getUsers":"dX0Mz"}],"dX0Mz":[function(require,module,exports) {
+},{"../servicios/getUsers":"dX0Mz","../servicios/postUsers":"5LuWf","../servicios/updateUsers":"2kejJ"}],"dX0Mz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "GetUsers", ()=>GetUsers);
@@ -634,6 +624,62 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["jC2qd","8lqZg"], "8lqZg", "parcelRequire6682")
+},{}],"5LuWf":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "postUsers", ()=>postUsers);
+async function postUsers(nombre, apellido) {
+    const userData = {
+        nombre,
+        apellido
+    };
+    try {
+        // Realiza una solicitud POST a la URL especificada
+        const response = await fetch("http://localhost:3001/users", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json" // Indica que los datos se envían en formato JSON. en este apartado tambien se pueden enviar tokens
+            },
+            body: JSON.stringify(userData) // Convierte el objeto newUser a JSON para enviarlo en el cuer
+        });
+        // Espera la respuesta en formato JSON
+        const data = await response.json();
+        // Retorna los datos obtenidos de la respuesta del servidor
+        return data; /// siempre hay que ponerlo 
+    } catch (error) {
+        // Captura y muestra cualquier error que ocurra durante la solicitud
+        console.error(error);
+    }
+}
 
-//# sourceMappingURL=index.975ef6c8.js.map
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2kejJ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "updateUsers", ()=>updateUsers);
+async function updateUsers(nombre, apellido, id) {
+    const userData = {
+        nombre,
+        apellido
+    };
+    try {
+        // Realiza una solicitud POST a la URL especificada
+        const response = await fetch("http://localhost:3001/users/" + id, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json" // Indica que los datos se envían en formato JSON. en este apartado tambien se pueden enviar tokens
+            },
+            body: JSON.stringify(userData) // Convierte el objeto newUser a JSON para enviarlo en el cuer
+        });
+        // Espera la respuesta en formato JSON
+        const data = await response.json();
+        // Retorna los datos obtenidos de la respuesta del servidor
+        return data; /// siempre hay que ponerlo 
+    } catch (error) {
+        // Captura y muestra cualquier error que ocurra durante la solicitud
+        console.error("Error update user:", error);
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["8t2f2","lOkiQ"], "lOkiQ", "parcelRequire6682")
+
+//# sourceMappingURL=index.0d966ffc.js.map

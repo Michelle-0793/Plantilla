@@ -1,12 +1,12 @@
-async function postUsers(nombre, apellido) {
+async function updateUsers(nombre, apellido,id) {
     const userData={
         nombre, 
         apellido
     }
     try {
         // Realiza una solicitud POST a la URL especificada
-        const response = await fetch('http://localhost:3001/users', {
-            method: 'POST', // Especifica que se está utilizando el método POST
+        const response = await fetch('http://localhost:3001/users/'+id, {
+            method: 'PUT', // Especifica que se está utilizando el método POST
             headers: {
                 'Content-Type': 'application/json' // Indica que los datos se envían en formato JSON. en este apartado tambien se pueden enviar tokens
             },
@@ -19,7 +19,7 @@ async function postUsers(nombre, apellido) {
         return data; /// siempre hay que ponerlo 
     } catch (error) {
         // Captura y muestra cualquier error que ocurra durante la solicitud
-        console.error(error);
+        console.error("Error update user:", error);
     }
 }
-export {postUsers};
+export {updateUsers};

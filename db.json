@@ -1,3 +1,9 @@
 {
-  "users": []
+  "users": [
+    {
+      "id": "d65b",
+      "nombre": "Michelle",
+      "apellido": "López"
+    }
+  ]
 }
